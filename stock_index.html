@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Market Prediction</title>
+  <style>
+    body {
+      background-color: #f4f4f4; /* Light gray background */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px; /* Slightly wider to accommodate form fields */
+      margin: 50px auto; /* Centered with spacing */
+      padding: 20px;
+      display: flex;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1); /* Light shadow */
+    }
+    .sidebar {
+      width: 60px; /* Sidebar width */
+      background-color: #3498db; /* Blue color */
+      border-top-left-radius: 10px; /* Rounded corners for sidebar */
+      border-bottom-left-radius: 10px; 
+    }
+    .content {
+      flex-grow: 1; /* Allow this section to expand */
+      padding: 20px;
+      background-color: white; /* White background for content area */
+      border-top-right-radius: 10px; /* Matching rounded corners */
+      border-bottom-right-radius: 10px;
+    }
+    h1 {
+      color: #333; /* Dark text color */
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px; /* Spacing between input fields */
+    }
+    .input-field {
+      width: 100%; /* Full-width inputs */
+      padding: 10px;
+      border: 1px solid #ccc; /* Light border */
+      border-radius: 5px; /* Rounded edges */
+    }
+    .btn-primary {
+      background-color: #3498db; /* Blue button */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #2980b9; /* Darker blue on hover */
+    }
+    .prediction-result {
+      margin-top: 20px;
+      font-size: 1.2em; /* Larger font for results */
+      color: #333; /* Dark text color */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar for decoration -->
+    <div class="sidebar"></div>
+
+    <!-- Main content area -->
+    <div class="content">
+      <h1>Stock Market Prediction</h1>
+
+      <form action="/predict" method="post">
+        <!-- Grouped input fields -->
+        <div class="input-group">
+          <select name="symbol" required>
+            <option value="" selected disabled>Choose Stock Symbol</option>
+            {% for symbol in symbols %}
+              <option value="{{ symbol }}">{{ symbol }}</option>
+            {% endfor %}
+          </select>
+
+          <input type="text" name="open_price" class="input-field" placeholder="Open Price" required />
+          <input type="text" name="close_price" class="input-field" placeholder="Close Price" required />
+          <input type="text" name="low_price" class="input-field" placeholder="Low Price" required />
+          <input type="text" name="high_price" class="input-field" placeholder="High Price" required />
+          <input type="text" name="volume" class="input-field" placeholder="Volume" required />
+        </div>
+
+        <button type="submit" class="btn-primary">Predict Stock Price</button>
+      </form>
+
+      <!-- Display the prediction result -->
+      <div class="prediction-result">
+        {{ prediction_text }}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
